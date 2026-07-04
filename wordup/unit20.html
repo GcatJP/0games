@@ -436,7 +436,7 @@
             🔊 Voice
           </button>
         </div>
-        <h1>Unit 3</h1>
+        <h1>Unit 1</h1>
         <div class="header-right">
           <span class="pill" id="progressPill">1 / 12</span>
         </div>
@@ -459,14 +459,26 @@
 
     <script>
       /* ---- word bank — same images/words as Match-Up ---- */
+
       const WORDS = [
-        // Unit 3
-        { word: "strawberry", img: "../images/strawberry.png" },
-        { word: "banana", img: "../images/banana.png" },
-        { word: "orange", img: "../images/orange.png" },
-        { word: "grapes", img: "../images/grapes.png" },
-        { word: "peach", img: "../images/peach.png" },
-        { word: "apple", img: "../images/apple.png" },
+        // Review — one word per unit
+        { word: "green", img: "../images/green.png" }, // Unit 1
+        { word: "book", img: "../images/book.png" }, // Unit 2
+        { word: "banana", img: "../images/banana.png" }, // Unit 3
+        { word: "onion", img: "../images/onion.png" }, // Unit 4
+        { word: "elephant", img: "../images/elephant.png" }, // Unit 5
+        { word: "sleepy", img: "../images/sleepy.png" }, // Unit 6
+        { word: "rainy", img: "../images/rainy.png" }, // Unit 7
+        { word: "butterfly", img: "../images/butterfly.png" }, // Unit 8
+        { word: "train", img: "../images/train.png" }, // Unit 9
+        { word: "shoulder", img: "../images/shoulder.png" }, // Unit 11
+        { word: "jacket", img: "../images/jacket.png" }, // Unit 12
+        { word: "spoon", img: "../images/spoon.png" }, // Unit 13
+        { word: "juice", img: "../images/juice.png" }, // Unit 14
+        { word: "sister", img: "../images/sister.png" }, // Unit 15
+        { word: "jump", img: "../images/jump.png" }, // Unit 16
+        { word: "ghost", img: "../images/ghost.png" }, // Unit 18
+        { word: "snowman", img: "../images/snowman.png" }, // Unit 19
       ];
 
       /* ---- audio (matching sounds) ---- */
@@ -538,7 +550,7 @@
 
       function buildQuestions() {
         // each of the 6 words used twice = 12 questions
-        let list = [...WORDS, ...WORDS];
+        let list = [...WORDS];
         shuffle(list);
         return list.map((target) => {
           // pick a distractor that isn't the target word

@@ -459,6 +459,7 @@
 
     <script>
       /* ---- word bank — same images/words as Match-Up ---- */
+
       const WORDS = [
         { word: "red", img: "../images/red.png" },
         { word: "yellow", img: "../images/yellow.png" },
@@ -466,6 +467,10 @@
         { word: "green", img: "../images/green.png" },
         { word: "orange", img: "../images/orange.png" },
         { word: "blue", img: "../images/blue.png" },
+        { word: "purple", img: "../images/purple.png" }, // ← new line
+        { word: "brown", img: "../images/brown.png" },
+        { word: "black", img: "../images/black.png" },
+        { word: "white", img: "../images/white.png" }, // ← new line
       ];
 
       /* ---- audio (matching sounds) ---- */
@@ -537,7 +542,7 @@
 
       function buildQuestions() {
         // each of the 6 words used twice = 12 questions
-        let list = [...WORDS, ...WORDS];
+        let list = [...WORDS];
         shuffle(list);
         return list.map((target) => {
           // pick a distractor that isn't the target word
