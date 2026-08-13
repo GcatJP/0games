@@ -64,7 +64,29 @@
         overflow: hidden;
         position: relative;
       }
-
+      .back-btn {
+        position: fixed;
+        top: max(20px, env(safe-area-inset-top, 20px));
+        left: clamp(10px, 4vw, 24px);
+        z-index: 60;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        background: orange;
+        color: #000;
+        border: 3px solid black;
+        border-radius: 50%;
+        font-weight: bold;
+        font-size: 1.3rem;
+        text-decoration: none;
+        cursor: pointer;
+        transition: transform 0.1s ease;
+      }
+      .back-btn:active {
+        transform: translateY(2px);
+      }
       /* decorative sun & cloud (Island 0 theme) */
       .sun {
         position: absolute;
@@ -299,21 +321,21 @@
   <body>
     <div class="sun"></div>
     <div class="cloud cloud1"></div>
-
+    <a class="back-btn" href="index.html">←</a>
     <div class="title-wrap">
-      <h1>Adventure Island</h1>
+      <h1>Games</h1>
     </div>
 
     <div class="grid-wrapper">
       <div class="grid" id="main-grid">
-        <a class="btn" href="videos.html">
-          <span class="btn-text">Videos</span>
-          <img class="btn-icon" src="images/sv.png" alt="" />
+        <a class="btn" href="./matchup/index.html">
+          <span class="btn-text">Match Up!</span>
+          <img class="btn-icon" src="images/sm0.png" alt="" />
         </a>
 
-        <a class="btn" href="games.html">
-          <span class="btn-text">Games</span>
-          <img class="btn-icon" src="images/kg.png" alt="" />
+        <a class="btn" href="wordup/index.html">
+          <span class="btn-text">Word Up!</span>
+          <img class="btn-icon" src="images/kw0.png" alt="" />
         </a>
       </div>
     </div>
