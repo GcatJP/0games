@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+
+    <!-- iOS Home Screen behaviour -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Adventure Island" />
+    <meta name="theme-color" content="#ffcc00" />
+
+    <link rel="apple-touch-icon" href="../images/home0.png" />
+    <link rel="manifest" href="manifest.json" />
+
+    <title>Adventure Island Songs</title>
+
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      :root {
+        --sun: #ffd23f;
+        --orange-dark: #c45a1a;
+        --playing: #3fbf6f;
+      }
+
+      html,
+      body {
+        width: 100%;
+        height: 100%;
+        overflow-x: hidden;
+        max-width: 100vw;
+      }
+
+      body {
+        font-family:
+          "Chalkboard SE", "Comic Sans MS", "Segoe Print", sans-serif;
+        background: radial-gradient(ellipse at center top, #e85a1a, #c03a0a);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        min-height: 100vh;
+        min-height: 100dvh;
+        position: relative;
+        overflow-y: auto;
+      }
+
+      .sun {
+        position: absolute;
+        top: max(10px, env(safe-area-inset-top, 10px));
+        right: clamp(10px, 4vw, 40px);
+        width: clamp(40px, 8vw, 72px);
+        height: clamp(40px, 8vw, 72px);
+        border-radius: 50%;
+        background: radial-gradient(circle at 35% 35%, #ffefae, var(--sun) 70%);
+        box-shadow: 0 0 24px 8px rgba(255, 210, 63, 0.5);
+        pointer-events: none;
+        z-index: 0;
+      }
+
+      .back-link {
+        position: absolute;
+        top: max(14px, env(safe-area-inset-top, 14px));
+        left: clamp(10px, 4vw, 30px);
+        font-family:
+          "Chalkboard SE", "Comic Sans MS", "Segoe Print", sans-serif;
+        font-weight: bold;
+        color: #fae207;
+        -webkit-text-stroke: 0.6px #f4930b;
+        text-decoration: none;
+        font-size: clamp(1rem, 3vw, 1.6rem);
+        z-index: 2;
+      }
+
+      h1 {
+        color: #fae207;
+        -webkit-text-stroke: 0.8px #f4930b;
+        text-align: center;
+        letter-spacing: 0.03em;
+        font-size: clamp(1.6rem, 6vw, 4rem);
+        padding: 0.6em 0.5em 0.3em;
+        z-index: 1;
+        position: relative;
+      }
+
+      .grid-wrapper {
+        flex: 1;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        width: 100%;
+        padding: 1vh 4vw 6vh;
+        position: relative;
+        z-index: 1;
+      }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: clamp(8px, 1.6vw, 18px);
+        width: min(96vw, 900px);
+      }
+
+      .song-btn {
+        font-family:
+          "Chalkboard SE", "Comic Sans MS", "Segoe Print", sans-serif;
+        font-weight: bold;
+        color: #e8a020;
+        background: #8b2a00;
+        border: 3px solid #e8a020;
+        border-radius: clamp(10px, 2vw, 16px);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        aspect-ratio: 1 / 1;
+        width: 100%;
+        font-size: clamp(1.2rem, 4vw, 2.4rem);
+        -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.2);
+        -webkit-user-select: none;
+        user-select: none;
+        transition:
+          transform 0.1s ease,
+          box-shadow 0.1s ease,
+          background 0.15s ease,
+          border-color 0.15s ease;
+      }
+
+      .song-btn:active {
+        transform: translateY(2px) scale(0.97);
+        box-shadow: 0 1px 0 var(--orange-dark);
+      }
+
+      .song-btn.playing {
+        background: var(--playing);
+        border-color: #d8ffe4;
+        color: #06371c;
+        -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.15);
+      }
+
+      @media screen and (orientation: portrait) and (max-width: 600px) {
+        .grid {
+          grid-template-columns: repeat(4, 1fr);
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="sun"></div>
+    <a class="back-link" href="index.html">&larr; Back</a>
+
+    <h1>Adventure Songs</h1>
+
+    <div class="grid-wrapper">
+      <div class="grid" id="song-grid"></div>
+    </div>
+
+    <audio id="player"></audio>
+
+    <script>
+      const BASE_URL = "https://adventureislandesl.b-cdn.net/Song";
+      const TOTAL_SONGS = 20;
+
+      const grid = document.getElementById("song-grid");
+      const player = document.getElementById("player");
+      let currentBtn = null;
+
+      for (let i = 1; i <= TOTAL_SONGS; i++) {
+        const btn = document.createElement("button");
+        btn.className = "song-btn";
+        btn.type = "button";
+        btn.textContent = i;
+        btn.dataset.src = `${BASE_URL}${i}.mp3`;
+        grid.appendChild(btn);
+      }
+
+      grid.addEventListener("click", (e) => {
+        const btn = e.target.closest(".song-btn");
+        if (!btn) return;
+
+        if (currentBtn === btn && !player.paused) {
+          player.pause();
+          btn.classList.remove("playing");
+          currentBtn = null;
+          return;
+        }
+
+        if (currentBtn) {
+          currentBtn.classList.remove("playing");
+        }
+
+        player.src = btn.dataset.src;
+        player.play();
+        btn.classList.add("playing");
+        currentBtn = btn;
+      });
+
+      player.addEventListener("ended", () => {
+        if (currentBtn) currentBtn.classList.remove("playing");
+        currentBtn = null;
+      });
+    </script>
+  </body>
+</html>

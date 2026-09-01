@@ -155,10 +155,12 @@
         text-decoration: none;
         cursor: pointer;
         display: flex;
-        align-items: center;
+          position: relative;
+  align-items: center;
+       padding-left: 1.2em;
         justify-content: flex-start;
         gap: 0.4em;
-        padding: 0 0.6em;
+        padding-top: 0.5em;
         width: 100%;
         overflow: hidden;
         -webkit-user-select: none;
@@ -174,48 +176,50 @@
         box-shadow: 0 1px 0 var(--orange-dark);
       }
 
-      .btn-text {
-        flex: 1;
-        text-align: center;
-        line-height: 1.05;
-      }
+   .btn-text {
+  position: relative;
+  z-index: 1;
+  max-width: calc(100% - 5em);
+}
 
-      .btn-icon {
-        height: 78%;
-        width: auto;
-        aspect-ratio: 1 / 1;
-        flex-shrink: 0;
-        object-fit: contain;
-        pointer-events: none;
-        user-select: none;
-      }
+     .btn-icon {
+  position: absolute;
+  bottom: 0;
+  right: 1.2em;
+  height: 95%;
+  width: auto;
+  aspect-ratio: 1 / 1;
+  object-fit: contain;
+  pointer-events: none;
+  user-select: none;
+}
 
       /* LANDSCAPE */
       @media screen and (orientation: landscape) {
-        h1 {
-          font-size: clamp(2rem, 7vw, 7rem);
-          padding: 0.1em 0.5em;
-          margin-top: 5vh;
-          margin-bottom: -8vh;
-        }
+      h1 {
+  font-size: clamp(2rem, 7vw, 7rem);
+  padding: 0.1em 0.5em;
+  margin-top: 5vh;
+  margin-bottom: 2vh;
+}
 
-        .grid-wrapper {
-          padding: 1vh 2vw 2vh;
-          margin-top: 2vh;
-        }
+.grid-wrapper {
+  padding: 1vh 2vw 2vh;
+  margin-top: 0;
+}
 
         .grid {
-          display: grid;
-          grid-template-columns: repeat(2, 1fr);
-          grid-template-rows: 1fr;
-          gap: clamp(6px, 1.4vw, 16px);
-          width: min(96vw, 1000px);
-        }
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 1fr;
+  gap: clamp(6px, 1.4vw, 16px);
+  width: min(96vw, 1000px);
+}
 
         .btn {
-          font-size: clamp(1.2rem, 7vw, 4.6rem);
-          height: clamp(80px, 45vh, 220px);
-        }
+  font-size: clamp(1rem, 5vw, 3.6rem);
+  height: clamp(70px, 38vh, 190px);
+}
       }
 
       /* LANDSCAPE IPHONE */
@@ -309,18 +313,23 @@
       <h1>Adventure Island</h1>
     </div>
 
-    <div class="grid-wrapper">
-      <div class="grid" id="main-grid">
-        <a class="btn" href="videos.html">
-          <span class="btn-text">Videos</span>
-          <img class="btn-icon" src="images/sv.png" alt="" />
-        </a>
+    <div class="grid" id="main-grid">
+  <a class="btn" href="videos.html">
+    <span class="btn-text">Videos</span>
+    <img class="btn-icon" src="images/sv.png" alt="" />
+  </a>
 
-        <a class="btn" href="games.html">
-          <span class="btn-text">Games</span>
-          <img class="btn-icon" src="images/kg.png" alt="" />
-        </a>
-      </div>
+  <a class="btn" href="games.html">
+    <span class="btn-text">Games</span>
+    <img class="btn-icon" src="images/kg.png" alt="" />
+  </a>
+
+  <a class="btn" href="songs.html">
+    <span class="btn-text">Songs</span>
+    <img class="btn-icon" src="images/ss.png" alt="" />
+  </a>
+</div>
+      
     </div>
   </body>
 </html>
