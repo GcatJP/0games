@@ -179,7 +179,7 @@
 .btn-text {
   position: relative;
   z-index: 1;
-  max-width: calc(100% - 7em);
+  max-width: calc(100% - clamp(3.5em, 22%, 6em));
 }
 
 .btn-icon {
@@ -216,8 +216,8 @@
   width: min(96vw, 1000px);
 }
 
-        .btn {
-  font-size: clamp(1rem, 5vw, 3.6rem);
+    .btn {
+  font-size: clamp(1rem, 4vw, 3rem);
   height: clamp(70px, 38vh, 190px);
 }
       }
@@ -298,8 +298,8 @@
   }
 
         .btn {
-          height: clamp(90px, 40vw, 250px) !important;
-          font-size: clamp(1.1rem, 11vw, 3.4rem) !important;
+           height: clamp(80px, 30vw, 200px) !important;
+    font-size: clamp(1rem, 10vw, 3rem) !important;
         }
       }
     </style>
