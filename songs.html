@@ -189,15 +189,6 @@
       const grid = document.getElementById("song-grid");
       const player = document.getElementById("player");
       let currentBtn = null;
-
-      for (let i = 1; i <= TOTAL_SONGS; i++) {
-        const btn = document.createElement("button");
-        btn.className = "song-btn";
-        btn.type = "button";
-        btn.textContent = i;
-        btn.dataset.src = `${BASE_URL}${i}.mp3`;
-        grid.appendChild(btn);
-      }
       for (let i = 1; i <= TOTAL_SONGS; i++) {
         const btn = document.createElement("button");
         btn.className = "song-btn";
