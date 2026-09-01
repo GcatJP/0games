@@ -157,6 +157,16 @@
           grid-template-columns: repeat(4, 1fr);
         }
       }
+      /* iPhone portrait, launched from Home Screen */
+      @media screen and (orientation: portrait) and (max-width: 430px) and (display-mode: standalone) {
+        h1 {
+          margin-top: max(60px, env(safe-area-inset-top, 50px)) !important;
+        }
+
+        .grid-wrapper {
+          padding-top: 3vh !important;
+        }
+      }
     </style>
   </head>
 
