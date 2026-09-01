@@ -4,7 +4,8 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+      content="width=device-width, initial-scale=1.0,
+          maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
     />
 
     <!-- iOS Home Screen behaviour -->
@@ -34,14 +35,13 @@
       }
 
       :root {
-        --ocean-deep: #0e6e6e;
-        --ocean: #1e97a0;
-        --ocean-light: #54c7c9;
-        --coral: #ff7b54;
+        --font-chalk:
+          "Chalkboard SE", "Comic Sans MS", "Segoe Print", sans-serif;
         --sun: #ffd23f;
-        --white: #fffdf8;
         --orange-dark: #c45a1a;
-        --orange-btn: #d4631e;
+        --btn-face: #8b2a00;
+        --btn-border: #e8a020;
+        --btn-text: #e8a020;
       }
 
       html,
@@ -53,9 +53,7 @@
       }
 
       body {
-        font-family:
-          "Chalkboard SE", "Comic Sans MS", "Segoe Print", sans-serif;
-
+        font-family: var(--font-chalk);
         background: radial-gradient(ellipse at center top, #e85a1a, #c03a0a);
         display: flex;
         flex-direction: column;
@@ -67,7 +65,7 @@
         position: relative;
       }
 
-      /* decorative sun & cloud (Island 0 theme) */
+      /* decorative sun & cloud */
       .sun {
         position: absolute;
         top: max(10px, env(safe-area-inset-top, 10px));
@@ -113,24 +111,16 @@
         left: 42px;
       }
 
-      /* title (Island 0 theme) */
-      .title-wrap {
-        position: relative;
-        display: inline-block;
-        z-index: 1;
-      }
-
       h1 {
-        font-family:
-          "Chalkboard SE", "Comic Sans MS", "Segoe Print", sans-serif;
-
+        font-family: var(--font-chalk);
         color: #fae207;
         -webkit-text-stroke: 0.8px #f4930b;
         width: 100%;
         text-align: center;
         letter-spacing: 0.03em;
         flex-shrink: 0;
-        white-space: nowrap;
+        position: relative;
+        z-index: 1;
       }
 
       .grid-wrapper {
@@ -139,29 +129,29 @@
         align-items: center;
         justify-content: center;
         width: 100%;
+        min-height: 0;
         position: relative;
         z-index: 1;
       }
 
-      /* unit-btn styling from Island 0 */
       .btn {
-        font-family:
-          "Chalkboard SE", "Comic Sans MS", "Segoe Print", sans-serif;
+        font-family: var(--font-chalk);
         font-weight: bold;
-        color: #e8a020;
-        background: #8b2a00;
-        border: 3px solid #e8a020;
+        color: var(--btn-text);
+        background: var(--btn-face);
+        border: 3px solid var(--btn-border);
         border-radius: clamp(10px, 2vw, 18px);
         text-decoration: none;
         cursor: pointer;
         display: flex;
-          position: relative;
-  align-items: center;
-       padding-left: 1.2em;
+        align-items: center;
         justify-content: flex-start;
         gap: 0.4em;
-        padding-top: 0.5em;
+        padding: 0 0.6em;
         width: 100%;
+        height: 100%;
+        min-height: 0;
+        min-width: 0;
         overflow: hidden;
         -webkit-user-select: none;
         user-select: none;
@@ -176,50 +166,48 @@
         box-shadow: 0 1px 0 var(--orange-dark);
       }
 
-.btn-text {
-  position: relative;
-  z-index: 1;
-  max-width: calc(100% - clamp(3.5em, 22%, 6em));
-}
+      .btn-text {
+        flex: 1;
+        text-align: center;
+        line-height: 1.05;
+      }
 
-.btn-icon {
-  position: absolute;
-  bottom: 0;
-  right: 0.3em;
-  height: 78%;
-  width: auto;
-  aspect-ratio: 1 / 1;
-  object-fit: contain;
-  pointer-events: none;
-  user-select: none;
-}
+      .btn-icon {
+        height: 78%;
+        width: auto;
+        aspect-ratio: 1 / 1;
+        flex-shrink: 0;
+        object-fit: contain;
+        pointer-events: none;
+        user-select: none;
+      }
 
       /* LANDSCAPE */
       @media screen and (orientation: landscape) {
-      h1 {
-  font-size: clamp(2rem, 7vw, 7rem);
-  padding: 0.1em 0.5em;
-  margin-top: 5vh;
-  margin-bottom: 2vh;
-}
+        h1 {
+          font-size: clamp(2rem, 7vw, 7rem);
+          padding: 0.1em 0.5em;
+          margin-top: 5vh;
+          margin-bottom: -8vh;
+        }
 
-.grid-wrapper {
-  padding: 1vh 2vw 2vh;
-  margin-top: 0;
-}
+        .grid-wrapper {
+          padding: 1vh 2vw 2vh;
+          margin-top: 2vh;
+        }
 
         .grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 1fr;
-  gap: clamp(6px, 1.4vw, 16px);
-  width: min(96vw, 1000px);
-}
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          grid-template-rows: 1fr;
+          gap: clamp(6px, 1.4vw, 16px);
+          width: min(96vw, 1300px);
+        }
 
-    .btn {
-  font-size: clamp(1rem, 4vw, 3rem);
-  height: clamp(70px, 38vh, 190px);
-}
+        .btn {
+          font-size: clamp(1rem, 5vw, 3.6rem);
+          height: clamp(80px, 45vh, 220px);
+        }
       }
 
       /* LANDSCAPE IPHONE */
@@ -230,12 +218,12 @@
           overflow-x: hidden !important;
         }
 
-       h1 {
-    font-size: clamp(1rem, 7vw, 4rem) !important;
-    padding: 0.1em 0.5em !important;
-    margin-top: 1vh !important;
-    margin-bottom: 1vh !important;
-  }
+        h1 {
+          font-size: clamp(1rem, 7vw, 4rem) !important;
+          padding: 0.1em 0.5em !important;
+          margin-top: -3vh !important;
+          margin-bottom: -8vh !important;
+        }
 
         .grid-wrapper {
           padding: 1vh 4vw 2vh;
@@ -243,8 +231,8 @@
         }
 
         .btn {
-          height: clamp(55px, 34vh, 130px) !important;
-          font-size: clamp(1rem, 6vw, 3.4rem) !important;
+          height: clamp(50px, 30vh, 120px) !important;
+          font-size: clamp(0.8rem, 4.5vw, 2.6rem) !important;
         }
       }
 
@@ -259,49 +247,51 @@
           padding: 0.3em 0.5em;
           margin-top: max(20px, env(safe-area-inset-top, 20px));
         }
+
         .grid-wrapper {
-          padding: 2vw 9vw 10vw;
+          padding: 2vw 9vw 6vw;
         }
 
         .grid {
           display: grid;
           grid-template-columns: 1fr;
-          gap: clamp(10px, 10vw, 100px);
+          grid-template-rows: repeat(3, 1fr);
+          gap: clamp(8px, 6vw, 60px);
           width: 100%;
           max-width: 520px;
+          min-height: 0;
         }
 
         .btn {
-          font-size: clamp(1.2rem, 11vw, 4.6rem);
-          height: clamp(90px, 36vw, 340px);
+          font-size: clamp(1rem, 8vw, 3.4rem);
+          height: clamp(70px, 24vw, 220px);
         }
       }
 
       /* PORTRAIT IPHONE */
       @media screen and (orientation: portrait) and (max-width: 430px) {
         h1 {
-          font-size: clamp(1rem, 9vw, 3.8rem) !important;
+          font-size: clamp(1.1rem, 10.5vw, 3.9rem) !important;
           padding: 0.3em 0.5em !important;
           -webkit-text-stroke: 1.5px #f4930b;
           line-height: 1;
-          margin-top: max(80px, env(safe-area-inset-top, 60px)) !important;
+          margin-top: max(40px, env(safe-area-inset-top, 30px)) !important;
         }
 
         .grid-wrapper {
-          padding: 4vh 9vw 2vw !important;
+          padding: 3.5vh 9vw 2vw !important;
         }
 
         .grid {
-    gap: 30px !important;
-    width: 82% !important;
-    margin-top: -10vh !important;
-  }
+          gap: 23px !important;
+          width: 100% !important;
+          margin-top: -5vh !important;
+        }
 
-  .btn {
-    height: clamp(90px, 40vw, 250px) !important;
-    font-size: clamp(1.1rem, 11vw, 3.4rem) !important;
-  }
-
+        .btn {
+          height: clamp(80px, 30vw, 180px) !important;
+          font-size: clamp(1rem, 10vw, 3.1rem) !important;
+        }
       }
     </style>
   </head>
@@ -310,27 +300,25 @@
     <div class="sun"></div>
     <div class="cloud cloud1"></div>
 
-    <div class="title-wrap">
-      <h1>Adventure Island</h1>
-    </div>
+    <h1>Adventure Island</h1>
 
-    <div class="grid" id="main-grid">
-  <a class="btn" href="videos.html">
-    <span class="btn-text">Videos</span>
-    <img class="btn-icon" src="images/sv.png" alt="" />
-  </a>
+    <div class="grid-wrapper">
+      <div class="grid" id="main-grid">
+        <a class="btn" href="videos.html">
+          <span class="btn-text">Videos</span>
+          <img class="btn-icon" src="images/sv.png" alt="" />
+        </a>
 
-  <a class="btn" href="games.html">
-    <span class="btn-text">Games</span>
-    <img class="btn-icon" src="images/kg.png" alt="" />
-  </a>
+        <a class="btn" href="games.html">
+          <span class="btn-text">Games</span>
+          <img class="btn-icon" src="images/kg.png" alt="" />
+        </a>
 
-  <a class="btn" href="songs.html">
-    <span class="btn-text">Songs</span>
-    <img class="btn-icon" src="images/ss.png" alt="" />
-  </a>
-</div>
-      
+        <a class="btn" href="songs.html">
+          <span class="btn-text">Songs</span>
+          <img class="btn-icon" src="images/ss.png" alt="" />
+        </a>
+      </div>
     </div>
   </body>
 </html>
