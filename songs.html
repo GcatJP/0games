@@ -110,7 +110,7 @@
 
       .grid {
         display: grid;
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         gap: clamp(8px, 1.6vw, 18px);
         width: min(96vw, 900px);
       }
@@ -125,11 +125,17 @@
         border-radius: clamp(10px, 2vw, 16px);
         cursor: pointer;
         display: flex;
+        text-decoration: none;
         align-items: center;
         justify-content: center;
-        aspect-ratio: 1 / 1;
+        aspect-ratio: auto;
         width: 100%;
-        font-size: clamp(1.2rem, 4vw, 2.4rem);
+        text-align: center;
+        line-height: 1.15;
+        font-size: clamp(0.85rem, 2.4vw, 1.5rem);
+        min-height: clamp(64px, 12vw, 100px);
+        padding: 0.4em 0.5em;
+
         -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.2);
         -webkit-user-select: none;
         user-select: none;
@@ -154,7 +160,7 @@
 
       @media screen and (orientation: portrait) and (max-width: 600px) {
         .grid {
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(2, 1fr);
         }
       }
       /* iPhone portrait, launched from Home Screen */
@@ -180,48 +186,38 @@
       <div class="grid" id="song-grid"></div>
     </div>
 
-    <audio id="player"></audio>
-
     <script>
-      const BASE_URL = "https://adventureislandesl.b-cdn.net/Song";
-      const TOTAL_SONGS = 20;
+      const SONGS = [
+        "1. The Rainbow Song",
+        "2. My Classroom",
+        "3. Favorite Fruits",
+        "4. I Like Vegetables",
+        "5. Amazing Animals",
+        "6. Fun Feelings",
+        "7. How's the Weather?",
+        "8. Is That a Butterfly?",
+        "9. Broom, Broom, Broom",
+        "10. Adventure Island",
+        "11. Head And Shoulders",
+        "12. Crazy Clothes",
+        "13. In My Kitchen",
+        "14. I Like Candy",
+        "15. My Family",
+        "16. Actions",
+        "17. The Alphabet Song",
+        "18. I'm a Scary Vampire",
+        "19. Merry Christmas Santa",
+        "20. All Songs",
+      ];
 
       const grid = document.getElementById("song-grid");
-      const player = document.getElementById("player");
-      let currentBtn = null;
-      for (let i = 1; i <= TOTAL_SONGS; i++) {
-        const btn = document.createElement("button");
-        btn.className = "song-btn";
-        btn.type = "button";
-        btn.textContent = i === 20 ? "All" : i;
-        btn.dataset.src = `${BASE_URL}${i}.mp3`;
-        grid.appendChild(btn);
-      }
 
-      grid.addEventListener("click", (e) => {
-        const btn = e.target.closest(".song-btn");
-        if (!btn) return;
-
-        if (currentBtn === btn && !player.paused) {
-          player.pause();
-          btn.classList.remove("playing");
-          currentBtn = null;
-          return;
-        }
-
-        if (currentBtn) {
-          currentBtn.classList.remove("playing");
-        }
-
-        player.src = btn.dataset.src;
-        player.play();
-        btn.classList.add("playing");
-        currentBtn = btn;
-      });
-
-      player.addEventListener("ended", () => {
-        if (currentBtn) currentBtn.classList.remove("playing");
-        currentBtn = null;
+      SONGS.forEach((name, i) => {
+        const link = document.createElement("a");
+        link.className = "song-btn";
+        link.href = `songplayer.html?song=${i + 1}`;
+        link.textContent = name;
+        grid.appendChild(link);
       });
     </script>
   </body>
