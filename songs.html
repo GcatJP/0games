@@ -14,7 +14,7 @@
       content="black-translucent"
     />
     <meta name="apple-mobile-web-app-title" content="Adventure Island" />
-    <meta name="theme-color" content="#ffcc00" />
+    <meta name="theme-color" content="#c03a0a" />
 
     <link rel="apple-touch-icon" href="../images/home0.png" />
     <link rel="manifest" href="manifest.json" />
@@ -48,7 +48,7 @@
       body {
         font-family:
           "Chalkboard SE", "Comic Sans MS", "Segoe Print", sans-serif;
-        background: radial-gradient(ellipse at center top, #e85a1a, #c03a0a);
+        background: transparent;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -58,7 +58,23 @@
         position: relative;
         overflow-y: auto;
       }
+      /* Solid red on html so nothing white can show through */
+      html {
+        background-color: #c03a0a;
+      }
 
+      /* Gradient on a fixed layer that extends past the screen edges */
+      body::before {
+        content: "";
+        position: fixed;
+        top: -150px;
+        bottom: -150px;
+        left: 0;
+        right: 0;
+        background: radial-gradient(ellipse at center top, #e85a1a, #c03a0a);
+        z-index: -1;
+        pointer-events: none;
+      }
       .sun {
         position: absolute;
         top: max(10px, env(safe-area-inset-top, 10px));
