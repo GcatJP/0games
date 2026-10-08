@@ -14,7 +14,7 @@
       content="black-translucent"
     />
     <meta name="apple-mobile-web-app-title" content="Adventure Island" />
-    <meta name="theme-color" content="#ffcc00" />
+    <meta name="theme-color" content="#c03a0a" />
 
     <link rel="apple-touch-icon" href="../images/home0.png" />
     <link rel="manifest" href="manifest.json" />
@@ -39,26 +39,41 @@
         --btn-gold: #e8a020;
       }
 
-      html,
-      body {
+      /* Solid red on html so nothing white can ever show through */
+      html {
+        background-color: #c03a0a;
         width: 100%;
-        height: 100%;
         overflow-x: hidden;
         max-width: 100vw;
+      }
+
+      /* Gradient lives on a fixed layer that extends past the screen edges */
+      body::before {
+        content: "";
+        position: fixed;
+        top: -150px;
+        bottom: -150px;
+        left: 0;
+        right: 0;
+        background: radial-gradient(ellipse at center top, #e85a1a, #c03a0a);
+        z-index: -1;
+        pointer-events: none;
       }
 
       body {
         font-family:
           "Chalkboard SE", "Comic Sans MS", "Segoe Print", sans-serif;
-        background: radial-gradient(ellipse at center top, #e85a1a, #c03a0a);
+        background: transparent;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
+        width: 100%;
         min-height: 100vh;
         min-height: 100dvh;
         position: relative;
-        overflow-y: auto;
+        overflow-x: hidden;
+        padding-bottom: calc(env(safe-area-inset-bottom, 0px) + 40px);
       }
 
       .sun {
@@ -92,21 +107,21 @@
         text-align: center;
         letter-spacing: 0.03em;
         line-height: 1.1;
-        font-size: clamp(1.6rem, 6vw, 4rem);
-        padding: 0.6em 0.5em 0.3em;
-        margin-top: 40px;
+        font-size: clamp(1.6rem, 6vw, 3rem);
+        padding: 0 0.5em 0.3em;
+        margin-top: calc(env(safe-area-inset-top, 0px) + 44px);
         z-index: 1;
         position: relative;
         flex-shrink: 0;
       }
 
       .grid-wrapper {
-        flex: 1 0 auto;
+        flex: 0 0 auto;
         display: flex;
-        align-items: center;
+        align-items: flex-start;
         justify-content: center;
         width: 100%;
-        padding: 1vh 4vw 6vh;
+        padding: 0.5vh 4vw 0;
         position: relative;
         z-index: 1;
       }
@@ -114,7 +129,7 @@
       .player {
         display: flex;
         flex-direction: column;
-        gap: clamp(14px, 4vh, 36px);
+        gap: clamp(8px, 2vh, 18px);
         width: min(92vw, 620px);
       }
 
@@ -194,8 +209,8 @@
         align-items: center;
         justify-content: center;
         width: 100%;
-        height: clamp(60px, 18vw, 110px);
-        font-size: clamp(1.4rem, 5.5vw, 2.6rem);
+        height: clamp(54px, 14vw, 90px);
+        font-size: clamp(1.4rem, 5.5vw, 2.4rem);
         -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.2);
         -webkit-user-select: none;
         user-select: none;
@@ -219,32 +234,59 @@
       }
 
       .status {
-        min-height: 1.4em;
+        min-height: 1.2em;
         text-align: center;
         font-weight: bold;
         font-size: 1.1rem;
         color: #fae207;
       }
 
+      /* Lyrics */
+      .lyrics {
+        width: min(92vw, 620px);
+        margin-top: 10px;
+        padding: 18px 16px;
+        border: 3px solid var(--btn-gold);
+        border-radius: clamp(10px, 2vw, 16px);
+        background: rgba(139, 42, 0, 0.55);
+        color: #fff4c2;
+        text-align: center;
+        position: relative;
+        z-index: 1;
+      }
+      .lyrics[hidden] {
+        display: none;
+      }
+      .lyrics h2 {
+        color: #fae207;
+        -webkit-text-stroke: 0.5px #f4930b;
+        font-size: clamp(1.2rem, 4.5vw, 1.8rem);
+        margin: 22px 0 10px;
+      }
+      .lyrics h2:first-child {
+        margin-top: 0;
+      }
+      .lyrics p {
+        white-space: pre-line;
+        font-size: clamp(1.1rem, 4.4vw, 1.6rem);
+        line-height: 1.5;
+        margin-bottom: 14px;
+      }
+      .lyrics p:last-child {
+        margin-bottom: 0;
+      }
+
       /* Landscape phones */
       @media screen and (orientation: landscape) and (max-height: 450px) {
         h1 {
-          font-size: clamp(1.2rem, 4.5vw, 2.4rem);
-          margin-top: 0;
-          padding-top: 0.3em;
+          font-size: clamp(1.2rem, 4.5vw, 2rem);
+          margin-top: calc(env(safe-area-inset-top, 0px) + 6px);
         }
         .player {
-          gap: 8px;
+          gap: 6px;
         }
         .btn {
-          height: clamp(40px, 22vh, 80px);
-        }
-      }
-
-      /* iPhone portrait, launched from Home Screen */
-      @media screen and (orientation: portrait) and (max-width: 430px) and (display-mode: standalone) {
-        h1 {
-          margin-top: max(60px, env(safe-area-inset-top, 50px)) !important;
+          height: clamp(40px, 18vh, 70px);
         }
       }
     </style>
@@ -284,6 +326,8 @@
       </div>
     </div>
 
+    <div class="lyrics" id="lyrics" hidden></div>
+
     <audio id="player" preload="metadata"></audio>
 
     <script>
@@ -312,6 +356,104 @@
         "All Songs",
       ];
 
+      // Each song = array of stanzas; each stanza = lines separated by \n
+      const LYRICS = {
+        1: [
+          "Red and yellow and pink and green,\nOrange and purple and blue.\nI can see a rainbow, see a rainbow, see a rainbow too.",
+          "Red and yellow and pink and green,\nOrange and purple and blue.\nI can see a rainbow, see a rainbow, see a rainbow too.",
+        ],
+        2: [
+          "Book, pencil, eraser, chair.\nTable, bag, yeah, yeah, yeah.",
+          "Book, pencil, eraser chair.\nTable, bag, yeah, yeah, yeah.",
+          "What's this? It's a bag.\nWhat's this? It's a book.",
+          "Book, pencil, eraser, chair.\nTable, bag, yeah, yeah, yeah.",
+        ],
+        3: [
+          "Apple, orange, strawberry.\nApple, orange, strawberry.",
+          "Do you like apples?\nYes, yes, yes.",
+          "Banana, grapes, peach, oh yeah!\nBanana, grapes, peach, oh yeah!",
+          "Do you like bananas?\nYes, yes, yes.",
+        ],
+        4: [
+          "Tomato, onion, potato, potato.\nCarrot, cucumber, let-tet-tuce.",
+          "Do you like tomatoes?\nYes. Yes, I do!",
+          "Do you like onions?\nNo. No, I don't!",
+          "Tomato, onion, potato, potato.\nCarrot, cucumber, let-tet-tuce.",
+        ],
+        5: [
+          "Tiger, elephant, horse.\nRabbit, monkey, fish.",
+          "What animal do you like?\nI like tigers, roar, roar, roar.\nI like monkeys, yak, yak, yak.",
+          "Tiger, elephant, horse.\nRabbit, monkey, fish.",
+        ],
+        6: [
+          "How are you?\nHow are you?\nI am happy.\nI am sad.\nI am hot, hot, hot.",
+          "How are you?\nHow are you?\nI am hungry.\nI am sleepy.\nI am cold, cold, cold.",
+        ],
+        7: [
+          "How's the weather?\nHow's the weather?\nIt's sunny, it's cloudy.\nIt's hot, hot, hot.\nIt's sunny, it's cloudy\nIt's hot, hot, hot.",
+          "How's the weather?\nHow's the weather?\nIt's rainy, it's stormy.\nIt's cold, cold, cold.\nIt's rainy, it's stormy.\nIt's cold, cold, cold.",
+        ],
+        8: [
+          "I see a house.\nI see a flower.\nI see a tree.\nI see the sun.",
+          "Is that a butterfly?\nYes. Yes, it is.\nIs that the moon?\nYes. Yes, it is.",
+          "I see a house.\nI see a flower.\nI see a tree.\nI see the sun.",
+        ],
+        9: [
+          "Broom, Broom, Broom.\nI'm a car.\nBroom, Broom, Broom.\nI'm a bus.\nToot, Toot, Toot.\nI'm a train.\nWoooooooosh.\nI'm an airplane.\nBroom, Broom, Broom.\nI'm a truck.\nToot, Toot, Toot.\nI'm a boat.",
+        ],
+        10: [
+          "Pack your bags, with Kevin and Sami,\nto Adventure Island.\nCome along with me!",
+          "Through the green jungle, to the sandy beach.\nUp snowy mountains, English is in reach.",
+          "New words to say and friends to find.\nLeaving no island left behind.",
+          "Pack your bags, with Kevin and Sami,\nto Adventure Island.\nCome along with me!",
+          "Through the green jungle, to the sandy beach.\nUp snowy mountains, English is in reach.",
+          "New words to say and friends to find.\nLeaving no island left behind.",
+          "Adventure Island, let's learn today!",
+        ],
+        11: [
+          "Head and shoulders,\nknees and toes,\nknees and toes,\nknees and toes.",
+          "Head and shoulders,\nknees and toes,\nEyes, ears, mouth and nose.",
+        ],
+        12: [
+          "I have a T-shirt,\nI have shorts,\nI have pants,\nYes, I do.",
+          "I have a jacket,\nI have shoes,\nI have a cap,\nYes, I do.",
+          "T-shirt, shorts, pants.\nJacket, shoes, cap.\nI'm ready to go, let's have fun.",
+        ],
+        13: [
+          "Knife, fork, cup, bowl.\nHere you are.\nThank you.\nHere you are.\nThank you.",
+          "Plate, chopsticks, I have a spoon.\nHere you are.\nThank you.",
+        ],
+        14: [
+          "Juice, please. Juice, please.\nHere you are.\nCookie, please. Cookie, please.\nHere you are.",
+          "I like cake. I like candy.\nI like cake. I like candy.",
+          "Juice, please. Juice, please.\nHere you are.\nMilk, please. Milk, please.\nHere you are.",
+        ],
+        15: [
+          "Hi, mom. Hi, mom.\nIt's my mom.\nHi dad. Hi dad.\nIt's my dad.",
+          "I have a brother.\nI have a sister.",
+          "Hello, grandma.\nHello, teacher.\nHello, hello, everyone.",
+        ],
+        16: [
+          "Run, run, run.\nJump, jump, jump.\nHurray - Yeah! - Yeah!",
+          "Walk, walk, walk.\nStand, stand, stand.\nHurray - Yeah! - Yeah!",
+          "Sit, sit, sit.\nDance, dance, dance.\nOh, Yeah!",
+        ],
+        17: [
+          "a, b, c, d, e, f, g,\nh, i, j, k, l, m, n,\no, p, q, r, s, t, u,\nv, w, x, y, z.",
+        ],
+        18: [
+          "I'm a scary vampire.\nI'm a scary witch.\nI'm a scary ghost.\nBoo, Boo, Boo.",
+          "Happy Halloween,\nto all the little monsters.\nGrrrrrrr!",
+          "I'm a scary spider.\nI'm a scary pumpkin.\nI'm a scary ghost.\nBoo, Boo, Boo.",
+          "Happy Halloween,\nto all the little monsters.\nGrrrrrrr!",
+        ],
+        19: [
+          "Merry Christmas Santa.\nMerry Christmas reindeer.\nAll the presents around the tree.\nMerry Christmas to you and me.",
+          "Merry Christmas Santa.\nMerry Christmas snowman.\nI see a star on the tree.\nMerry Christmas to you and me.",
+          "Merry Christmas Santa.\nMerry Christmas to you and me.",
+        ],
+      };
+
       const songNum = Number(new URLSearchParams(location.search).get("song"));
       if (!Number.isInteger(songNum) || songNum < 1 || songNum > SONGS.length) {
         location.replace("songs.html");
@@ -325,6 +467,7 @@
       const currentEl = document.getElementById("current");
       const totalEl = document.getElementById("total");
       const statusEl = document.getElementById("status");
+      const lyricsEl = document.getElementById("lyrics");
       let isSeeking = false;
 
       document.getElementById("title").textContent = title;
@@ -332,6 +475,34 @@
 
       if (title) player.src = `${BASE_URL}${songNum}.mp3`;
 
+      /* ---------- Lyrics ---------- */
+      function addStanzas(stanzas) {
+        stanzas.forEach((text) => {
+          const p = document.createElement("p");
+          p.textContent = text;
+          lyricsEl.appendChild(p);
+        });
+      }
+
+      function renderLyrics() {
+        lyricsEl.innerHTML = "";
+        const isAll = songNum === SONGS.length;
+
+        if (isAll) {
+          for (let i = 1; i < SONGS.length; i++) {
+            const p = document.createElement("p");
+            p.textContent = `${i}. ${SONGS[i - 1]}`;
+            lyricsEl.appendChild(p);
+          }
+        } else if (LYRICS[songNum]) {
+          addStanzas(LYRICS[songNum]);
+        }
+
+        lyricsEl.hidden = lyricsEl.children.length === 0;
+      }
+      renderLyrics();
+
+      /* ---------- Player ---------- */
       function fmt(t) {
         if (!isFinite(t)) return "0:00";
         const m = Math.floor(t / 60);
