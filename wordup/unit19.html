@@ -6,6 +6,13 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="theme-color" content="#c03a0a" />
     <title>Adventure Island Listen &amp; Choose!</title>
     <style>
       :root {
@@ -26,12 +33,28 @@
         padding: 0;
       }
 
-      html,
-      body {
+      html {
         width: 100%;
-        height: 100dvh;
+        height: 100%;
+        background-color: #c03a0a;
+      }
+
+      body {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
         overflow: hidden;
-        background: radial-gradient(ellipse at center top, #e85a1a, #c03a0a);
+        background-color: #c03a0a;
+        background-image: radial-gradient(
+          ellipse at center top,
+          #e85a1a,
+          #c03a0a
+        );
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
         font-family: "Trebuchet MS", "Verdana", sans-serif;
         color: var(--ink);
       }
@@ -87,7 +110,7 @@
         z-index: 1;
         display: flex;
         flex-direction: column;
-        height: 100dvh;
+        height: 100%;
         padding: max(6px, env(safe-area-inset-top, 6px))
           max(10px, env(safe-area-inset-right, 10px))
           max(8px, env(safe-area-inset-bottom, 8px))
