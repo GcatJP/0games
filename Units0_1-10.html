@@ -18,22 +18,17 @@
     <meta charset="UTF-8" />
     <meta
       name="viewport"
-      content="width=device-width, initial-scale=1.0,
-          maximum-scale=1.0, user-scalable=no"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
     />
-
-    <!-- iOS Home Screen behaviour -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-    <meta name="apple-mobile-web-app-title" content="Adventure Island" />
-
-    <!-- App icons (multiple resolutions) -->
-    <link rel="apple-touch-icon" sizes="180x180" href="images/Ai0.180.png" />
-    <link rel="apple-touch-icon" sizes="167x167" href="images/Ai0.167.png" />
-    <link rel="apple-touch-icon" sizes="152x152" href="images/Ai0.152.png" />
-    <link rel="apple-touch-icon" sizes="120x120" href="images/Ai0.120.png" />
-
-    <link rel="manifest" href="manifest.json" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta
+      name="apple-mobile-web-app-status-bar-style"
+      content="black-translucent"
+    />
+    <meta name="apple-mobile-web-app-title" content="Island Games" />
+    <meta name="theme-color" content="#c03a0a" />
+    <link rel="apple-touch-icon" href="/images/home0.png" />
 
     <title>Units 1-10</title>
 
@@ -61,16 +56,29 @@
         max-width: 100vw;
       }
 
-      body {
-        font-family: var(--font-chalk);
-        background: var(--bg);
+      html {
         width: 100%;
-        max-width: 100vw;
-        height: 100vh;
         height: 100%;
+        background-color: #c03a0a;
+      }
+
+      body {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
         overflow: hidden;
-        display: flex;
-        flex-direction: column;
+        background-color: #c03a0a;
+        background-image: radial-gradient(
+          ellipse at center top,
+          #e85a1a,
+          #c03a0a
+        );
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        font-family: "Trebuchet MS", "Verdana", sans-serif;
       }
 
       /* ----------------------------------------------------------
